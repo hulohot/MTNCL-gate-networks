@@ -93,6 +93,12 @@ def save_results(network: MTNCLNetwork, accuracy: float, timestamp: str):
         json.dump(results, f, indent=2)
 
 def main():
+    # Parse command line arguments
+    import argparse
+    parser = argparse.ArgumentParser(description='Train and test XOR operation using MTNCL gates')
+    parser.add_argument('-v', '--verbose', action='store_true', help='Enable verbose output')
+    args = parser.parse_args()
+    
     # Generate timestamp for this run
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     
@@ -100,18 +106,21 @@ def main():
     X, y = generate_xor_data()
     
     # Create a minimal network for XOR
-    # XOR can be implemented with a small network since it's a simple operation
     network = MTNCLNetwork(
         num_inputs=2,
         num_outputs=1,
-        hidden_layers=[4, 2]  # Small network is sufficient for XOR
+        hidden_layers=[4, 2],  # Small network is sufficient for XOR
+        verbose=args.verbose
     )
     
-    print("Training network for XOR operation...")
-    print("\nTraining Data:")
-    print("Input: A B | Output")
-    for x_i, y_i in zip(X, y):
-        print(f"      {x_i[0]} {x_i[1]} |   {y_i[0]}")
+    if args.verbose:
+        print("Training network for XOR operation...")
+        print("\nTraining Data:")
+        print("Input: A B | Output")
+        for x_i, y_i in zip(X, y):
+            print(f"      {x_i[0]} {x_i[1]} |   {y_i[0]}")
+    else:
+        print("Training network for XOR operation...")
     
     # Train with focused parameters for XOR
     network.train(
@@ -128,14 +137,15 @@ def main():
     save_results(network, accuracy, timestamp)
     print(f"\nResults saved in examples/outputs/{timestamp}/")
     
-    # Print network structure
-    print("\nNetwork Structure:")
-    print("=" * 50)
-    for layer_idx, layer in enumerate(network.gates):
-        print(f"\nLayer {layer_idx}:")
-        for gate in layer:
-            gate_type = gate.gate_type.name if gate.gate_type else "None"
-            print(f"  {gate.name}: Type={gate_type}, Inputs={[g.name for g in gate.inputs]}")
+    # Print network structure if verbose
+    if args.verbose:
+        print("\nNetwork Structure:")
+        print("=" * 50)
+        for layer_idx, layer in enumerate(network.gates):
+            print(f"\nLayer {layer_idx}:")
+            for gate in layer:
+                gate_type = gate.gate_type.name if gate.gate_type else "None"
+                print(f"  {gate.name}: Type={gate_type}, Inputs={[g.name for g in gate.inputs]}")
 
 if __name__ == "__main__":
     main() 

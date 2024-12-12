@@ -11,7 +11,7 @@ from ..gates.gate_types import GateType
 class MTNCLNetwork:
     """Neural network implementation using MTNCL gates"""
     
-    def __init__(self, num_inputs: int, num_outputs: int, hidden_layers: List[int]):
+    def __init__(self, num_inputs: int, num_outputs: int, hidden_layers: List[int], verbose: bool = False):
         """Initialize network with specified layer sizes"""
         self.gates: List[List[MTNCLGate]] = []
         self.gate_counter = 0
@@ -22,6 +22,7 @@ class MTNCLNetwork:
             'best_configs': [],
             'layer_stats': []
         }
+        self.verbose = verbose
         
         # Layer 0: Input gates and constants
         input_layer = [
@@ -62,6 +63,11 @@ class MTNCLNetwork:
         self.gates.append(output_layer)
         
         self.output_gates = output_layer
+        
+        if self.verbose:
+            print(f"Created network with {len(self.gates)} layers:")
+            for i, layer in enumerate(self.gates):
+                print(f"  Layer {i}: {len(layer)} gates")
     
     def _create_gate_name(self, prefix: str = "gate") -> str:
         """Create a unique gate name"""
@@ -106,6 +112,10 @@ class MTNCLNetwork:
         plateau_counter = 0
         max_plateau = 50  # Number of iterations without improvement before resetting
         
+        if self.verbose:
+            print("\nStarting training...")
+            print(f"Parameters: iterations={iterations}, temp_start={temperature_start}, temp_end={temperature_end}")
+        
         # Initialize with smart gate selection
         self._smart_gate_init(temperature=1.0)
         error, accuracy = self.evaluate(X, y)
@@ -118,11 +128,10 @@ class MTNCLNetwork:
             current_config = [(gate.gate_type, gate.inputs[:]) for layer in self.gates[1:] for gate in layer]
             
             # Perform multiple local modifications
-            num_modifications = max(1, int(4 * temperature))  # More modifications at higher temperatures
+            num_modifications = max(1, int(4 * temperature))
             modified_gates = set()
             
             for _ in range(num_modifications):
-                # Select a random non-input layer and gate
                 layer_idx = random.randint(1, len(self.gates) - 1)
                 gate = random.choice(self.gates[layer_idx])
                 
@@ -130,15 +139,13 @@ class MTNCLNetwork:
                     modified_gates.add(gate)
                     
                     if random.random() < 0.7:  # 70% chance to change gate type
-                        # Change gate type
                         old_type = gate.gate_type
                         compatible_gates = self.get_gate_options(gate)
                         new_type = random.choice([g for g in compatible_gates if g != old_type])
                         gate.gate_type = new_type
                     else:  # 30% chance to modify inputs
-                        # Modify input connections
                         available_inputs = [g for l in self.gates[:layer_idx] for g in l]
-                        if len(available_inputs) > 2:  # Ensure we have enough inputs to choose from
+                        if len(available_inputs) > 2:
                             num_inputs = random.randint(2, min(4, len(available_inputs)))
                             gate.inputs = random.sample(available_inputs, num_inputs)
             
@@ -152,7 +159,8 @@ class MTNCLNetwork:
                     best_accuracy = new_accuracy
                     best_config = current_config
                     plateau_counter = 0
-                    self._print_debug_info(iteration, new_error, new_accuracy, X, y)
+                    if self.verbose:
+                        self._print_debug_info(iteration, new_error, new_accuracy, X, y)
             else:
                 # Revert changes
                 for gate, (old_type, old_inputs) in zip(
@@ -165,7 +173,8 @@ class MTNCLNetwork:
             
             # Reset if stuck in plateau
             if plateau_counter >= max_plateau:
-                print(f"\nReset at iteration {iteration} due to plateau")
+                if self.verbose:
+                    print(f"\nReset at iteration {iteration} due to plateau")
                 self._smart_gate_init(temperature=1.0)
                 plateau_counter = 0
             
@@ -174,8 +183,11 @@ class MTNCLNetwork:
             self.training_history['accuracies'].append(new_accuracy)
             
             if iteration % 100 == 0:
-                print(f"Iteration {iteration}: Error = {new_error:.4f}, Accuracy = {new_accuracy*100:.1f}%, "
-                      f"Best Accuracy = {best_accuracy*100:.1f}%")
+                if self.verbose:
+                    print(f"Iteration {iteration}: Error = {new_error:.4f}, Accuracy = {new_accuracy*100:.1f}%, "
+                          f"Best Accuracy = {best_accuracy*100:.1f}%")
+                else:
+                    print(f"Training progress: {iteration/iterations*100:.1f}% (Accuracy: {new_accuracy*100:.1f}%)", end='\r')
         
         # Restore best configuration
         if best_config:
