@@ -1,0 +1,744 @@
+{
+  "num_layers": 5,
+  "layer_sizes": [
+    11,
+    36,
+    18,
+    9,
+    4
+  ],
+  "gates": [
+    {
+      "name": "input_1",
+      "layer": 0,
+      "type": null,
+      "inputs": []
+    },
+    {
+      "name": "input_2",
+      "layer": 0,
+      "type": null,
+      "inputs": []
+    },
+    {
+      "name": "input_3",
+      "layer": 0,
+      "type": null,
+      "inputs": []
+    },
+    {
+      "name": "input_4",
+      "layer": 0,
+      "type": null,
+      "inputs": []
+    },
+    {
+      "name": "input_5",
+      "layer": 0,
+      "type": null,
+      "inputs": []
+    },
+    {
+      "name": "input_6",
+      "layer": 0,
+      "type": null,
+      "inputs": []
+    },
+    {
+      "name": "input_7",
+      "layer": 0,
+      "type": null,
+      "inputs": []
+    },
+    {
+      "name": "input_8",
+      "layer": 0,
+      "type": null,
+      "inputs": []
+    },
+    {
+      "name": "input_9",
+      "layer": 0,
+      "type": null,
+      "inputs": []
+    },
+    {
+      "name": "const_10",
+      "layer": 0,
+      "type": "ALWAYS_ONE",
+      "inputs": []
+    },
+    {
+      "name": "const_11",
+      "layer": 0,
+      "type": "ALWAYS_ZERO",
+      "inputs": []
+    },
+    {
+      "name": "gate_l1_12",
+      "layer": 1,
+      "type": "TH22",
+      "inputs": [
+        "input_3",
+        "input_4"
+      ]
+    },
+    {
+      "name": "gate_l1_13",
+      "layer": 1,
+      "type": "THxor0",
+      "inputs": [
+        "input_8",
+        "input_6",
+        "input_1",
+        "input_3"
+      ]
+    },
+    {
+      "name": "gate_l1_14",
+      "layer": 1,
+      "type": "THxor0",
+      "inputs": [
+        "const_11",
+        "input_7"
+      ]
+    },
+    {
+      "name": "gate_l1_15",
+      "layer": 1,
+      "type": "THxor0",
+      "inputs": [
+        "input_7",
+        "input_9",
+        "input_1",
+        "input_3"
+      ]
+    },
+    {
+      "name": "gate_l1_16",
+      "layer": 1,
+      "type": "THxor0",
+      "inputs": [
+        "input_5",
+        "input_3"
+      ]
+    },
+    {
+      "name": "gate_l1_17",
+      "layer": 1,
+      "type": "THand0",
+      "inputs": [
+        "const_11",
+        "input_7"
+      ]
+    },
+    {
+      "name": "gate_l1_18",
+      "layer": 1,
+      "type": "TH23",
+      "inputs": [
+        "const_10",
+        "input_8",
+        "input_9"
+      ]
+    },
+    {
+      "name": "gate_l1_19",
+      "layer": 1,
+      "type": "THand0",
+      "inputs": [
+        "input_2",
+        "const_10",
+        "input_7",
+        "const_11"
+      ]
+    },
+    {
+      "name": "gate_l1_20",
+      "layer": 1,
+      "type": "THxor0",
+      "inputs": [
+        "const_11",
+        "input_7"
+      ]
+    },
+    {
+      "name": "gate_l1_21",
+      "layer": 1,
+      "type": "THand0",
+      "inputs": [
+        "input_9",
+        "input_3"
+      ]
+    },
+    {
+      "name": "gate_l1_22",
+      "layer": 1,
+      "type": "TH23w2",
+      "inputs": [
+        "input_6",
+        "input_1",
+        "input_5",
+        "const_10"
+      ]
+    },
+    {
+      "name": "gate_l1_23",
+      "layer": 1,
+      "type": "TH12",
+      "inputs": [
+        "const_11",
+        "input_1"
+      ]
+    },
+    {
+      "name": "gate_l1_24",
+      "layer": 1,
+      "type": "ALWAYS_ZERO",
+      "inputs": [
+        "input_8",
+        "input_3"
+      ]
+    },
+    {
+      "name": "gate_l1_25",
+      "layer": 1,
+      "type": "THxor0",
+      "inputs": [
+        "input_4",
+        "input_7"
+      ]
+    },
+    {
+      "name": "gate_l1_26",
+      "layer": 1,
+      "type": "THxor0",
+      "inputs": [
+        "input_1",
+        "input_9"
+      ]
+    },
+    {
+      "name": "gate_l1_27",
+      "layer": 1,
+      "type": "TH23w2",
+      "inputs": [
+        "input_6",
+        "input_5",
+        "input_3",
+        "input_9"
+      ]
+    },
+    {
+      "name": "gate_l1_28",
+      "layer": 1,
+      "type": "TH23",
+      "inputs": [
+        "input_9",
+        "input_7",
+        "input_8"
+      ]
+    },
+    {
+      "name": "gate_l1_29",
+      "layer": 1,
+      "type": "THand0",
+      "inputs": [
+        "input_4",
+        "input_3"
+      ]
+    },
+    {
+      "name": "gate_l1_30",
+      "layer": 1,
+      "type": "THxor0",
+      "inputs": [
+        "input_6",
+        "input_3"
+      ]
+    },
+    {
+      "name": "gate_l1_31",
+      "layer": 1,
+      "type": "THxor0",
+      "inputs": [
+        "input_5",
+        "input_2",
+        "input_1",
+        "input_7"
+      ]
+    },
+    {
+      "name": "gate_l1_32",
+      "layer": 1,
+      "type": "TH23w2",
+      "inputs": [
+        "const_11",
+        "input_5",
+        "input_8"
+      ]
+    },
+    {
+      "name": "gate_l1_33",
+      "layer": 1,
+      "type": "THxor0",
+      "inputs": [
+        "input_4",
+        "const_10",
+        "input_7",
+        "input_2"
+      ]
+    },
+    {
+      "name": "gate_l1_34",
+      "layer": 1,
+      "type": "TH23w2",
+      "inputs": [
+        "input_7",
+        "input_3",
+        "input_8",
+        "input_9"
+      ]
+    },
+    {
+      "name": "gate_l1_35",
+      "layer": 1,
+      "type": "THand0",
+      "inputs": [
+        "input_1",
+        "input_9",
+        "input_2"
+      ]
+    },
+    {
+      "name": "gate_l1_36",
+      "layer": 1,
+      "type": "THand0",
+      "inputs": [
+        "input_4",
+        "input_1"
+      ]
+    },
+    {
+      "name": "gate_l1_37",
+      "layer": 1,
+      "type": "THand0",
+      "inputs": [
+        "const_11",
+        "input_7"
+      ]
+    },
+    {
+      "name": "gate_l1_38",
+      "layer": 1,
+      "type": "TH34",
+      "inputs": [
+        "input_1",
+        "input_5",
+        "const_11",
+        "input_2"
+      ]
+    },
+    {
+      "name": "gate_l1_39",
+      "layer": 1,
+      "type": "THxor0",
+      "inputs": [
+        "const_10",
+        "input_3",
+        "const_11"
+      ]
+    },
+    {
+      "name": "gate_l1_40",
+      "layer": 1,
+      "type": "THand0",
+      "inputs": [
+        "input_3",
+        "input_7"
+      ]
+    },
+    {
+      "name": "gate_l1_41",
+      "layer": 1,
+      "type": "TH12",
+      "inputs": [
+        "input_7",
+        "input_3",
+        "input_1"
+      ]
+    },
+    {
+      "name": "gate_l1_42",
+      "layer": 1,
+      "type": "THand0",
+      "inputs": [
+        "input_8",
+        "input_2",
+        "const_11"
+      ]
+    },
+    {
+      "name": "gate_l1_43",
+      "layer": 1,
+      "type": "THand0",
+      "inputs": [
+        "input_2",
+        "input_9",
+        "const_10",
+        "const_11"
+      ]
+    },
+    {
+      "name": "gate_l1_44",
+      "layer": 1,
+      "type": "THxor0",
+      "inputs": [
+        "input_3",
+        "input_6",
+        "input_5"
+      ]
+    },
+    {
+      "name": "gate_l1_45",
+      "layer": 1,
+      "type": "THand0",
+      "inputs": [
+        "input_1",
+        "const_11",
+        "input_9"
+      ]
+    },
+    {
+      "name": "gate_l1_46",
+      "layer": 1,
+      "type": "TH12",
+      "inputs": [
+        "input_2",
+        "input_1"
+      ]
+    },
+    {
+      "name": "gate_l1_47",
+      "layer": 1,
+      "type": "TH23w2",
+      "inputs": [
+        "input_1",
+        "input_6",
+        "input_7"
+      ]
+    },
+    {
+      "name": "gate_l2_48",
+      "layer": 2,
+      "type": "TH23w2",
+      "inputs": [
+        "gate_l1_13",
+        "gate_l1_45",
+        "gate_l1_15",
+        "gate_l1_29"
+      ]
+    },
+    {
+      "name": "gate_l2_49",
+      "layer": 2,
+      "type": "TH23w2",
+      "inputs": [
+        "gate_l1_17",
+        "input_1",
+        "input_8"
+      ]
+    },
+    {
+      "name": "gate_l2_50",
+      "layer": 2,
+      "type": "TH22",
+      "inputs": [
+        "gate_l1_12",
+        "input_1",
+        "gate_l1_18"
+      ]
+    },
+    {
+      "name": "gate_l2_51",
+      "layer": 2,
+      "type": "TH23w2",
+      "inputs": [
+        "const_11",
+        "gate_l1_20",
+        "gate_l1_40",
+        "gate_l1_26"
+      ]
+    },
+    {
+      "name": "gate_l2_52",
+      "layer": 2,
+      "type": "TH33w2",
+      "inputs": [
+        "input_8",
+        "gate_l1_47",
+        "gate_l1_14",
+        "const_11"
+      ]
+    },
+    {
+      "name": "gate_l2_53",
+      "layer": 2,
+      "type": "TH23w2",
+      "inputs": [
+        "gate_l1_44",
+        "gate_l1_32",
+        "gate_l1_39",
+        "gate_l1_42"
+      ]
+    },
+    {
+      "name": "gate_l2_54",
+      "layer": 2,
+      "type": "TH14",
+      "inputs": [
+        "gate_l1_22",
+        "gate_l1_41",
+        "gate_l1_17",
+        "gate_l1_27"
+      ]
+    },
+    {
+      "name": "gate_l2_55",
+      "layer": 2,
+      "type": "ALWAYS_ONE",
+      "inputs": [
+        "input_3",
+        "gate_l1_45",
+        "gate_l1_32"
+      ]
+    },
+    {
+      "name": "gate_l2_56",
+      "layer": 2,
+      "type": "TH44w2",
+      "inputs": [
+        "input_3",
+        "gate_l1_46",
+        "gate_l1_41",
+        "gate_l1_33"
+      ]
+    },
+    {
+      "name": "gate_l2_57",
+      "layer": 2,
+      "type": "TH23",
+      "inputs": [
+        "input_3",
+        "gate_l1_35",
+        "gate_l1_44"
+      ]
+    },
+    {
+      "name": "gate_l2_58",
+      "layer": 2,
+      "type": "THxor0",
+      "inputs": [
+        "gate_l1_35",
+        "gate_l1_26"
+      ]
+    },
+    {
+      "name": "gate_l2_59",
+      "layer": 2,
+      "type": "ALWAYS_ZERO",
+      "inputs": [
+        "input_6",
+        "gate_l1_43",
+        "const_10",
+        "gate_l1_30"
+      ]
+    },
+    {
+      "name": "gate_l2_60",
+      "layer": 2,
+      "type": "THxor0",
+      "inputs": [
+        "gate_l1_26",
+        "input_5"
+      ]
+    },
+    {
+      "name": "gate_l2_61",
+      "layer": 2,
+      "type": "THxor0",
+      "inputs": [
+        "gate_l1_35",
+        "gate_l1_12"
+      ]
+    },
+    {
+      "name": "gate_l2_62",
+      "layer": 2,
+      "type": "THxor0",
+      "inputs": [
+        "gate_l1_38",
+        "gate_l1_39",
+        "gate_l1_21"
+      ]
+    },
+    {
+      "name": "gate_l2_63",
+      "layer": 2,
+      "type": "THxor0",
+      "inputs": [
+        "gate_l1_41",
+        "gate_l1_46",
+        "gate_l1_45",
+        "gate_l1_43"
+      ]
+    },
+    {
+      "name": "gate_l2_64",
+      "layer": 2,
+      "type": "THand0",
+      "inputs": [
+        "gate_l1_38",
+        "const_10",
+        "gate_l1_12"
+      ]
+    },
+    {
+      "name": "gate_l2_65",
+      "layer": 2,
+      "type": "THxor0",
+      "inputs": [
+        "gate_l1_35",
+        "gate_l1_19"
+      ]
+    },
+    {
+      "name": "gate_l3_66",
+      "layer": 3,
+      "type": "TH22",
+      "inputs": [
+        "gate_l2_54",
+        "gate_l1_21"
+      ]
+    },
+    {
+      "name": "gate_l3_67",
+      "layer": 3,
+      "type": "THand0",
+      "inputs": [
+        "gate_l1_14",
+        "gate_l2_60"
+      ]
+    },
+    {
+      "name": "gate_l3_68",
+      "layer": 3,
+      "type": "THand0",
+      "inputs": [
+        "gate_l1_41",
+        "input_5",
+        "gate_l1_17"
+      ]
+    },
+    {
+      "name": "gate_l3_69",
+      "layer": 3,
+      "type": "THand0",
+      "inputs": [
+        "input_6",
+        "gate_l1_37"
+      ]
+    },
+    {
+      "name": "gate_l3_70",
+      "layer": 3,
+      "type": "TH23",
+      "inputs": [
+        "gate_l1_26",
+        "gate_l1_12",
+        "gate_l1_46",
+        "gate_l1_19"
+      ]
+    },
+    {
+      "name": "gate_l3_71",
+      "layer": 3,
+      "type": "THand0",
+      "inputs": [
+        "gate_l2_55",
+        "gate_l2_57",
+        "gate_l1_40"
+      ]
+    },
+    {
+      "name": "gate_l3_72",
+      "layer": 3,
+      "type": "THand0",
+      "inputs": [
+        "gate_l2_55",
+        "gate_l1_38",
+        "gate_l1_21"
+      ]
+    },
+    {
+      "name": "gate_l3_73",
+      "layer": 3,
+      "type": "THxor0",
+      "inputs": [
+        "input_5",
+        "input_9",
+        "input_4"
+      ]
+    },
+    {
+      "name": "gate_l3_74",
+      "layer": 3,
+      "type": "TH23w2",
+      "inputs": [
+        "gate_l1_44",
+        "input_2",
+        "gate_l2_53",
+        "const_11"
+      ]
+    },
+    {
+      "name": "output_0_75",
+      "layer": 4,
+      "type": "THand0",
+      "inputs": [
+        "gate_l1_31",
+        "gate_l1_38",
+        "gate_l1_36"
+      ]
+    },
+    {
+      "name": "output_1_76",
+      "layer": 4,
+      "type": "THand0",
+      "inputs": [
+        "gate_l3_72",
+        "input_9",
+        "input_7"
+      ]
+    },
+    {
+      "name": "output_2_77",
+      "layer": 4,
+      "type": "TH12",
+      "inputs": [
+        "input_7",
+        "gate_l2_59",
+        "gate_l3_72"
+      ]
+    },
+    {
+      "name": "output_3_78",
+      "layer": 4,
+      "type": "ALWAYS_ONE",
+      "inputs": [
+        "input_1",
+        "input_3"
+      ]
+    }
+  ]
+}

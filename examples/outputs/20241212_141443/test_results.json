@@ -1,0 +1,170 @@
+[
+  {
+    "pattern": [
+      1,
+      1,
+      1,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0
+    ],
+    "expected": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "output": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "predicted_class": "Random",
+    "expected_class": "Horizontal",
+    "is_correct": false
+  },
+  {
+    "pattern": [
+      1,
+      1,
+      1,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1
+    ],
+    "expected": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "output": [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+    ],
+    "predicted_class": "Vertical",
+    "expected_class": "Horizontal",
+    "is_correct": false
+  },
+  {
+    "pattern": [
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1,
+      0
+    ],
+    "expected": [
+      0,
+      1,
+      0,
+      0
+    ],
+    "output": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "predicted_class": "Random",
+    "expected_class": "Vertical",
+    "is_correct": false
+  },
+  {
+    "pattern": [
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    "expected": [
+      0,
+      1,
+      0,
+      0
+    ],
+    "output": [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+    ],
+    "predicted_class": "Diagonal",
+    "expected_class": "Vertical",
+    "is_correct": false
+  },
+  {
+    "pattern": [
+      1,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1,
+      1
+    ],
+    "expected": [
+      0,
+      0,
+      1,
+      0
+    ],
+    "output": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "predicted_class": "Horizontal",
+    "expected_class": "Diagonal",
+    "is_correct": false
+  },
+  {
+    "pattern": [
+      1,
+      0,
+      1,
+      0,
+      0,
+      1,
+      1,
+      0,
+      0
+    ],
+    "expected": [
+      0,
+      0,
+      0,
+      1
+    ],
+    "output": [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+    ],
+    "predicted_class": "Diagonal",
+    "expected_class": "Random",
+    "is_correct": false
+  }
+]
