@@ -1,113 +1,106 @@
 # MTNCL Neural Network Framework
 
-A framework for building neural networks using Multi-Threshold Null Convention Logic (MTNCL) gates. This project implements neural networks using MTNCL gates instead of traditional Boolean gates, making it suitable for asynchronous circuit implementations.
+Neural network framework built from Multi-Threshold Null Convention Logic (MTNCL) gates.
 
-## Project Structure
+## What’s included
 
-```
-mtncl-neural-network-gen/
-├── src/
-│   └── mtncl_nn/
-│       ├── core/           # Core network implementation
-│       ├── gates/          # Gate definitions and implementations
-│       └── utils/          # Utility functions
-├── examples/
-│   ├── pattern_recognition/  # Pattern recognition example
-│   ├── xor/                # XOR operation example
-│   └── outputs/            # Example outputs and results
-├── tests/                  # Test cases
-└── docs/                   # Documentation
-```
+- MTNCL gate primitives (`GateType`, `MTNCLGate`)
+- Network + simulated annealing training (`MTNCLNetwork`)
+- Model save/load to JSON
+- CLI for training and inference
+- Test suite (`pytest`)
+- GitHub Actions CI for PR/push validation
 
-## Features
+## Install
 
-- Implementation of various MTNCL gate types
-- Neural network framework using MTNCL gates
-- Training using simulated annealing
-- Binary output classification
-- Detailed performance analysis and debugging
-- Example implementations
-
-## Installation
-
-1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/mtncl-neural-network-gen.git
-cd mtncl-neural-network-gen
+pip install -e .[dev]
 ```
 
-2. Install dependencies:
+## Run tests
+
+```bash
+pytest
+```
+
+## Toy models
+
+### XOR (MTNCL)
+
+```bash
+python examples/toy_models/xor_mtncl.py --iterations 2000
+```
+
+### MNIST (toy subset, MTNCL)
+
 ```bash
 pip install -r requirements.txt
+python examples/toy_models/mnist_mtncl.py --classes 0,1 --train-per-class 30 --test-per-class 10 --iterations 500
 ```
 
-## Usage
-
-### Basic Example
+## Python usage
 
 ```python
-from src.mtncl_nn import MTNCLNetwork
+from mtncl_nn import MTNCLNetwork
 
-# Create a network
-network = MTNCLNetwork(
-    num_inputs=9,
-    num_outputs=4,
-    hidden_layers=[36, 18, 9]
-)
+X = [[0,0], [0,1], [1,0], [1,1]]
+y = [[1,0], [0,1], [0,1], [1,0]]
 
-# Train the network
-network.train(X, y, iterations=10000)
+net = MTNCLNetwork(num_inputs=2, num_outputs=2, hidden_layers=[3])
+net.train(X, y, iterations=200)
 
-# Use the network
-output = network.forward(input_data)
+pred = net.forward([1, 0])
+net.save("model.json")
 ```
 
-### Running Examples
+## CLI: training and inference
 
-1. Pattern Recognition Example:
+### 1) Prepare dataset JSON
+
+`dataset.json`:
+
+```json
+{
+  "X": [[0,0], [0,1], [1,0], [1,1]],
+  "y": [[1,0], [0,1], [0,1], [1,0]]
+}
+```
+
+### 2) Train
+
 ```bash
-cd examples/pattern_recognition
-python pattern_recognition.py
+python -m mtncl_nn.cli train \
+  --data dataset.json \
+  --output model.json \
+  --num-inputs 2 \
+  --num-outputs 2 \
+  --hidden-layers 3 \
+  --iterations 500
 ```
 
-2. XOR Operation Example:
+### 3) Infer
+
+`inputs.json`:
+
+```json
+[[0,0], [1,1]]
+```
+
 ```bash
-cd examples/xor
-python xor_example.py
+python -m mtncl_nn.cli infer \
+  --model model.json \
+  --inputs inputs.json \
+  --output predictions.json
 ```
 
-## Examples
+## Project layout
 
-### Pattern Recognition
-
-The pattern recognition example demonstrates using the MTNCL neural network to recognize simple patterns in 3x3 binary images:
-- Horizontal lines
-- Vertical lines
-- Diagonal lines
-- Random patterns
-
-### XOR Operation
-
-The XOR example demonstrates implementing a basic logic operation using MTNCL gates:
-- Simple 2-input, 1-output network
-- Complete truth table verification
-- Network structure visualization
-- Detailed performance analysis
-
-Results for all examples are saved in the `examples/outputs/` directory with timestamps.
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-
-- List any acknowledgments or references here
+```
+src/mtncl_nn/
+  core/network.py
+  gates/gate.py
+  gates/gate_types.py
+  cli.py
+tests/
+.github/workflows/ci.yml
+```
