@@ -1,0 +1,59 @@
+digraph xor_mtncl {
+  rankdir=LR;
+  node [shape=box, style=rounded];
+  subgraph cluster_0 {
+    label="Layer 0";
+    color=lightgrey;
+    "input_1" [label="input_1\nINPUT"];
+    "input_2" [label="input_2\nINPUT"];
+    "const_3" [label="const_3\nALWAYS_ONE"];
+    "const_4" [label="const_4\nALWAYS_ZERO"];
+  }
+  subgraph cluster_1 {
+    label="Layer 1";
+    color=lightgrey;
+    "gate_l1_5" [label="gate_l1_5\nTH12"];
+    "gate_l1_6" [label="gate_l1_6\nTH33"];
+    "gate_l1_7" [label="gate_l1_7\nTH22"];
+    "gate_l1_8" [label="gate_l1_8\nTHand0"];
+  }
+  subgraph cluster_2 {
+    label="Layer 2";
+    color=lightgrey;
+    "gate_l2_9" [label="gate_l2_9\nTHand0"];
+    "gate_l2_10" [label="gate_l2_10\nTHxor0"];
+  }
+  subgraph cluster_3 {
+    label="Layer 3";
+    color=lightgrey;
+    "output_0_11" [label="output_0_11\nTH22"];
+    "output_1_12" [label="output_1_12\nTH34w3"];
+  }
+  "const_4" -> "gate_l1_5";
+  "input_1" -> "gate_l1_5";
+  "input_2" -> "gate_l1_5";
+  "const_3" -> "gate_l1_5";
+  "input_2" -> "gate_l1_6";
+  "const_4" -> "gate_l1_6";
+  "const_3" -> "gate_l1_6";
+  "input_2" -> "gate_l1_7";
+  "input_1" -> "gate_l1_7";
+  "const_4" -> "gate_l1_7";
+  "const_3" -> "gate_l1_7";
+  "input_1" -> "gate_l1_8";
+  "const_4" -> "gate_l1_8";
+  "const_3" -> "gate_l1_8";
+  "gate_l1_5" -> "gate_l2_9";
+  "const_4" -> "gate_l2_9";
+  "const_3" -> "gate_l2_9";
+  "gate_l1_5" -> "gate_l2_10";
+  "input_2" -> "gate_l2_10";
+  "gate_l1_7" -> "output_0_11";
+  "gate_l1_5" -> "output_0_11";
+  "input_1" -> "output_0_11";
+  "gate_l1_6" -> "output_0_11";
+  "gate_l1_5" -> "output_1_12";
+  "gate_l1_6" -> "output_1_12";
+  "gate_l2_10" -> "output_1_12";
+  "input_2" -> "output_1_12";
+}

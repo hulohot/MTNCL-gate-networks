@@ -141,10 +141,13 @@ def main() -> None:
     out_prefix.parent.mkdir(parents=True, exist_ok=True)
     model_path = f"{out_prefix}.json"
     netlist_path = f"{out_prefix}.v"
+    dot_path = f"{out_prefix}.dot"
     model.save(model_path)
     Path(netlist_path).write_text(model.to_verilog(module_name="mnist_mtncl"), encoding="utf-8")
+    Path(dot_path).write_text(model.to_dot(graph_name="mnist_mtncl"), encoding="utf-8")
     print(f"Saved model:   {model_path}")
     print(f"Saved netlist: {netlist_path}")
+    print(f"Saved graph:   {dot_path}")
 
 
 if __name__ == "__main__":

@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import argparse
 import json
+import shutil
+import subprocess
 from pathlib import Path
 from typing import List
 
@@ -46,6 +48,24 @@ def cmd_netlist(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_visualize(args: argparse.Namespace) -> int:
+    model = MTNCLNetwork.load(args.model)
+    dot = model.to_dot(graph_name=args.graph_name)
+    Path(args.dot_output).write_text(dot, encoding="utf-8")
+    print(f"Wrote DOT graph to {args.dot_output}")
+
+    if args.image_output:
+        dot_bin = shutil.which("dot")
+        if not dot_bin:
+            print("Graphviz 'dot' not found; skipping image render.")
+            return 0
+        cmd = [dot_bin, f"-T{args.image_format}", args.dot_output, "-o", args.image_output]
+        subprocess.run(cmd, check=True)
+        print(f"Wrote graph image to {args.image_output}")
+
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="mtncl", description="MTNCL training and inference CLI")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -73,6 +93,14 @@ def build_parser() -> argparse.ArgumentParser:
     netlist.add_argument("--output", required=True, help="Path to write .v file")
     netlist.add_argument("--module-name", default="mtncl_net", help="Verilog module name")
     netlist.set_defaults(func=cmd_netlist)
+
+    visualize = sub.add_parser("visualize", help="Export model graph to DOT (and optional image via Graphviz)")
+    visualize.add_argument("--model", required=True, help="Path to model JSON")
+    visualize.add_argument("--dot-output", required=True, help="Path to write .dot file")
+    visualize.add_argument("--graph-name", default="mtncl_net", help="DOT graph name")
+    visualize.add_argument("--image-output", help="Optional path to image file (e.g., net.png, net.svg)")
+    visualize.add_argument("--image-format", default="png", choices=["png", "svg", "pdf"], help="Graphviz output format")
+    visualize.set_defaults(func=cmd_visualize)
 
     return parser
 

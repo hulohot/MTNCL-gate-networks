@@ -43,7 +43,23 @@ python examples/toy_models/mnist_mtncl.py --classes 0,1 --train-per-class 30 --t
 ### Export a Verilog netlist from any saved model
 
 ```bash
-python -m mtncl_nn.cli netlist --model model.json --output model.v --module-name my_mtncl_net
+PYTHONPATH=src python -m mtncl_nn.cli netlist --model model.json --output model.v --module-name my_mtncl_net
+```
+
+### Visualize a netlist graph
+
+```bash
+PYTHONPATH=src python -m mtncl_nn.cli visualize --model model.json --dot-output model.dot
+# optional image render (requires Graphviz `dot`)
+PYTHONPATH=src python -m mtncl_nn.cli visualize --model model.json --dot-output model.dot --image-output model.svg --image-format svg
+```
+
+### Optional Verilog smoke test
+
+If `iverilog` + `vvp` are installed, the test suite will compile and simulate the XOR netlist:
+
+```bash
+PYTHONPATH=src .venv/bin/pytest -q
 ```
 
 ## Python usage

@@ -396,6 +396,31 @@ class MTNCLNetwork:
         lines.append("")
         return "\n".join(lines)
 
+    def to_dot(self, graph_name: str = "mtncl_net") -> str:
+        """Emit a Graphviz DOT representation of the network netlist."""
+        lines: List[str] = []
+        lines.append(f"digraph {graph_name} {{")
+        lines.append("  rankdir=LR;")
+        lines.append("  node [shape=box, style=rounded];")
+
+        for layer_idx, layer in enumerate(self.gates):
+            lines.append(f"  subgraph cluster_{layer_idx} {{")
+            lines.append(f"    label=\"Layer {layer_idx}\";")
+            lines.append("    color=lightgrey;")
+            for gate in layer:
+                gt = gate.gate_type.name if gate.gate_type else ("INPUT" if layer_idx == 0 else "UNSET")
+                lines.append(f"    \"{gate.name}\" [label=\"{gate.name}\\n{gt}\"];")
+            lines.append("  }")
+
+        for layer in self.gates[1:]:
+            for gate in layer:
+                for inp in gate.inputs:
+                    lines.append(f"  \"{inp.name}\" -> \"{gate.name}\";")
+
+        lines.append("}")
+        lines.append("")
+        return "\n".join(lines)
+
     def _print_debug_info(self, iteration: int, error: float, accuracy: float, X: List[List[float]], y: List[List[float]]):
         """Print detailed debug information"""
         print(f"\n{'='*50}")
