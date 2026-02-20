@@ -298,6 +298,104 @@ class MTNCLNetwork:
             data = json.load(f)
         return cls.from_dict(data, verbose=verbose)
 
+    def _gate_expr(self, gate: MTNCLGate) -> str:
+        """Return a Verilog boolean expression for a gate output."""
+        if gate.gate_type is None:
+            return "1'b0"
+
+        gt = gate.gate_type
+        names = [inp.name for inp in gate.inputs]
+
+        if gt == GateType.ALWAYS_ONE:
+            return "1'b1"
+        if gt == GateType.ALWAYS_ZERO:
+            return "1'b0"
+
+        # Aliases for readability in emitted expressions
+        A = names[0] if len(names) > 0 else "1'b0"
+        B = names[1] if len(names) > 1 else "1'b0"
+
+        if gt == GateType.TH12:
+            return f"({A} | {B})"
+        if gt == GateType.TH22:
+            return f"({A} & {B})"
+        if gt == GateType.TH13:
+            c3 = " | ".join(names[:3]) if names else "1'b0"
+            return f"({c3})"
+        if gt == GateType.TH23:
+            c3 = names[:3]
+            while len(c3) < 3:
+                c3.append("1'b0")
+            a, b, c = c3
+            return f"(({a} & {b}) | ({a} & {c}) | ({b} & {c}))"
+        if gt == GateType.TH33:
+            c3 = names[:3]
+            while len(c3) < 3:
+                c3.append("1'b0")
+            a, b, c = c3
+            return f"({a} & {b} & {c})"
+        if gt == GateType.THxor0:
+            return f"({A} ^ {B})"
+        if gt == GateType.THand0:
+            return f"({A} & {B})"
+        if gt == GateType.TH23w2:
+            c = " | ".join(names[2:]) if len(names) > 2 else "1'b0"
+            return f"({A} | ({B} & ({c})))"
+        if gt == GateType.TH33w2:
+            c = " | ".join(names[2:]) if len(names) > 2 else "1'b0"
+            return f"(({A} & {B}) | ({A} & ({c})))"
+
+        # Fallback: match compute_output default threshold behavior.
+        # num_required parsed from gate enum name THxy... (x = input count), threshold = x//2.
+        try:
+            num_required = int(gt.name[2]) if len(gt.name) >= 3 else 2
+        except ValueError:
+            num_required = 2
+
+        threshold = max(1, num_required // 2)
+        terms = names[:num_required]
+        while len(terms) < num_required:
+            terms.append("1'b0")
+
+        # Build sum of 1-bit terms and compare against threshold.
+        summed = " + ".join([f"({t} ? 1 : 0)" for t in terms]) if terms else "0"
+        return f"(({summed}) >= {threshold})"
+
+    def to_verilog(self, module_name: str = "mtncl_net") -> str:
+        """Emit a synthesizable-ish combinational Verilog netlist for the current network."""
+        input_gates = self.gates[0][:-2]  # exclude constants
+        output_gates = self.output_gates
+        internal_gates = [g for layer in self.gates[1:] for g in layer if g not in output_gates]
+
+        lines: List[str] = []
+        lines.append(f"module {module_name}(")
+        lines.append("  input  wire [" + str(len(input_gates) - 1) + ":0] in_bits,")
+        lines.append("  output wire [" + str(len(output_gates) - 1) + ":0] out_bits")
+        lines.append(");")
+        lines.append("")
+
+        # Input aliases
+        for i, g in enumerate(input_gates):
+            lines.append(f"  wire {g.name} = in_bits[{i}];")
+
+        # Constants
+        lines.append(f"  wire {self.gates[0][-2].name} = 1'b1;")
+        lines.append(f"  wire {self.gates[0][-1].name} = 1'b0;")
+        lines.append("")
+
+        # Internal + output logic
+        for g in internal_gates + output_gates:
+            expr = self._gate_expr(g)
+            lines.append(f"  wire {g.name} = {expr};")
+
+        lines.append("")
+        for i, g in enumerate(output_gates):
+            lines.append(f"  assign out_bits[{i}] = {g.name};")
+
+        lines.append("endmodule")
+        lines.append("")
+        return "\n".join(lines)
+
     def _print_debug_info(self, iteration: int, error: float, accuracy: float, X: List[List[float]], y: List[List[float]]):
         """Print detailed debug information"""
         print(f"\n{'='*50}")

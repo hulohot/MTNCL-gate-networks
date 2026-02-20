@@ -16,6 +16,7 @@ from __future__ import annotations
 import argparse
 import os
 import sys
+from pathlib import Path
 from typing import List, Tuple
 
 import numpy as np
@@ -96,6 +97,7 @@ def main() -> None:
     p.add_argument("--hidden-layers", type=str, default="24,12")
     p.add_argument("--seed", type=int, default=42)
     p.add_argument("--verbose", action="store_true")
+    p.add_argument("--save-prefix", type=str, default="examples/outputs/toy_models/mnist")
     args = p.parse_args()
 
     classes = parse_classes(args.classes)
@@ -134,6 +136,15 @@ def main() -> None:
 
     print(f"Train accuracy: {train_acc * 100:.1f}%")
     print(f"Test accuracy:  {test_acc * 100:.1f}%")
+
+    out_prefix = Path(args.save_prefix)
+    out_prefix.parent.mkdir(parents=True, exist_ok=True)
+    model_path = f"{out_prefix}.json"
+    netlist_path = f"{out_prefix}.v"
+    model.save(model_path)
+    Path(netlist_path).write_text(model.to_verilog(module_name="mnist_mtncl"), encoding="utf-8")
+    print(f"Saved model:   {model_path}")
+    print(f"Saved netlist: {netlist_path}")
 
 
 if __name__ == "__main__":

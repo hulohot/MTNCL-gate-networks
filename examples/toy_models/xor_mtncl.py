@@ -9,6 +9,7 @@ from __future__ import annotations
 import argparse
 import os
 import sys
+from pathlib import Path
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(os.path.join(ROOT, "src"))
@@ -32,6 +33,7 @@ def main() -> None:
     p = argparse.ArgumentParser()
     p.add_argument("--iterations", type=int, default=2000)
     p.add_argument("--verbose", action="store_true")
+    p.add_argument("--save-prefix", type=str, default="examples/outputs/toy_models/xor")
     args = p.parse_args()
 
     X, y = xor_dataset()
@@ -51,6 +53,15 @@ def main() -> None:
         pred_class = pred.index(1.0)
         exp_class = y_i.index(1.0)
         print(f"{x_i[0]} {x_i[1]} |     {pred_class}      |      {exp_class}")
+
+    out_prefix = Path(args.save_prefix)
+    out_prefix.parent.mkdir(parents=True, exist_ok=True)
+    model_path = f"{out_prefix}.json"
+    netlist_path = f"{out_prefix}.v"
+    net.save(model_path)
+    Path(netlist_path).write_text(net.to_verilog(module_name="xor_mtncl"), encoding="utf-8")
+    print(f"\nSaved model:   {model_path}")
+    print(f"Saved netlist: {netlist_path}")
 
 
 if __name__ == "__main__":

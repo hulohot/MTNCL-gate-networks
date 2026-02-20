@@ -29,6 +29,7 @@ pytest
 
 ```bash
 python examples/toy_models/xor_mtncl.py --iterations 2000
+# writes examples/outputs/toy_models/xor.json and xor.v
 ```
 
 ### MNIST (toy subset, MTNCL)
@@ -36,6 +37,13 @@ python examples/toy_models/xor_mtncl.py --iterations 2000
 ```bash
 pip install -r requirements.txt
 python examples/toy_models/mnist_mtncl.py --classes 0,1 --train-per-class 30 --test-per-class 10 --iterations 500
+# writes examples/outputs/toy_models/mnist.json and mnist.v
+```
+
+### Export a Verilog netlist from any saved model
+
+```bash
+python -m mtncl_nn.cli netlist --model model.json --output model.v --module-name my_mtncl_net
 ```
 
 ## Python usage

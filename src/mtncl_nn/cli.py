@@ -38,6 +38,14 @@ def cmd_infer(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_netlist(args: argparse.Namespace) -> int:
+    model = MTNCLNetwork.load(args.model)
+    verilog = model.to_verilog(module_name=args.module_name)
+    Path(args.output).write_text(verilog, encoding="utf-8")
+    print(f"Wrote Verilog netlist to {args.output}")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="mtncl", description="MTNCL training and inference CLI")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -59,6 +67,12 @@ def build_parser() -> argparse.ArgumentParser:
     infer.add_argument("--inputs", required=True, help="Path to JSON array of input rows")
     infer.add_argument("--output", required=True, help="Path to write predictions JSON")
     infer.set_defaults(func=cmd_infer)
+
+    netlist = sub.add_parser("netlist", help="Export model JSON to Verilog netlist")
+    netlist.add_argument("--model", required=True, help="Path to model JSON")
+    netlist.add_argument("--output", required=True, help="Path to write .v file")
+    netlist.add_argument("--module-name", default="mtncl_net", help="Verilog module name")
+    netlist.set_defaults(func=cmd_netlist)
 
     return parser
 
