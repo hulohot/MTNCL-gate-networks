@@ -1,0 +1,87 @@
+module mnist_2class_tiny(
+  input  wire [48:0] in_bits,
+  output wire [1:0] out_bits
+);
+
+  wire input_1 = in_bits[0];
+  wire input_2 = in_bits[1];
+  wire input_3 = in_bits[2];
+  wire input_4 = in_bits[3];
+  wire input_5 = in_bits[4];
+  wire input_6 = in_bits[5];
+  wire input_7 = in_bits[6];
+  wire input_8 = in_bits[7];
+  wire input_9 = in_bits[8];
+  wire input_10 = in_bits[9];
+  wire input_11 = in_bits[10];
+  wire input_12 = in_bits[11];
+  wire input_13 = in_bits[12];
+  wire input_14 = in_bits[13];
+  wire input_15 = in_bits[14];
+  wire input_16 = in_bits[15];
+  wire input_17 = in_bits[16];
+  wire input_18 = in_bits[17];
+  wire input_19 = in_bits[18];
+  wire input_20 = in_bits[19];
+  wire input_21 = in_bits[20];
+  wire input_22 = in_bits[21];
+  wire input_23 = in_bits[22];
+  wire input_24 = in_bits[23];
+  wire input_25 = in_bits[24];
+  wire input_26 = in_bits[25];
+  wire input_27 = in_bits[26];
+  wire input_28 = in_bits[27];
+  wire input_29 = in_bits[28];
+  wire input_30 = in_bits[29];
+  wire input_31 = in_bits[30];
+  wire input_32 = in_bits[31];
+  wire input_33 = in_bits[32];
+  wire input_34 = in_bits[33];
+  wire input_35 = in_bits[34];
+  wire input_36 = in_bits[35];
+  wire input_37 = in_bits[36];
+  wire input_38 = in_bits[37];
+  wire input_39 = in_bits[38];
+  wire input_40 = in_bits[39];
+  wire input_41 = in_bits[40];
+  wire input_42 = in_bits[41];
+  wire input_43 = in_bits[42];
+  wire input_44 = in_bits[43];
+  wire input_45 = in_bits[44];
+  wire input_46 = in_bits[45];
+  wire input_47 = in_bits[46];
+  wire input_48 = in_bits[47];
+  wire input_49 = in_bits[48];
+  wire const_50 = 1'b1;
+  wire const_51 = 1'b0;
+
+  wire gate_l1_52 = (input_12 ^ input_35);
+  wire gate_l1_53 = (input_1 | (input_2 & (input_3 | input_4 | input_5 | input_6 | input_7 | input_8 | input_9 | input_10 | input_11 | input_12 | input_13 | input_14 | input_15 | input_16 | input_17 | input_18 | input_19 | input_20 | input_21 | input_22 | input_23 | input_24 | input_25 | input_26 | input_27 | input_28 | input_29 | input_30 | input_31 | input_32 | input_33 | input_34 | input_35 | input_36 | input_37 | input_38 | input_39 | input_40 | input_41 | input_42 | input_43 | input_44 | input_45 | input_46 | input_47 | input_48 | input_49 | const_50 | const_51)));
+  wire gate_l1_54 = (((input_25 ? 1 : 0)) >= 1);
+  wire gate_l1_55 = 1'b1;
+  wire gate_l1_56 = 1'b0;
+  wire gate_l1_57 = (input_1 & input_2);
+  wire gate_l1_58 = (input_1 & input_2);
+  wire gate_l1_59 = ((input_16 & input_25) | (input_16 & input_18) | (input_25 & input_18));
+  wire gate_l1_60 = (((input_1 ? 1 : 0) + (input_2 ? 1 : 0) + (input_3 ? 1 : 0) + (input_4 ? 1 : 0)) >= 2);
+  wire gate_l1_61 = (const_51 & input_2);
+  wire gate_l1_62 = (((input_29 ? 1 : 0) + (input_35 ? 1 : 0) + (input_23 ? 1 : 0)) >= 1);
+  wire gate_l1_63 = (input_1 & input_2 & input_3);
+  wire gate_l1_64 = (input_1 ^ input_2);
+  wire gate_l1_65 = (input_33 & input_4);
+  wire gate_l1_66 = (input_1 & input_2);
+  wire gate_l1_67 = 1'b1;
+  wire gate_l2_68 = 1'b0;
+  wire gate_l2_69 = (gate_l1_56 & gate_l1_61);
+  wire gate_l2_70 = (((input_15 ? 1 : 0) + (input_14 ? 1 : 0) + (gate_l1_52 ? 1 : 0) + (input_6 ? 1 : 0)) >= 2);
+  wire gate_l2_71 = (input_31 & input_14);
+  wire gate_l2_72 = ((input_37 & input_13) | (input_37 & (gate_l1_58 | input_34)));
+  wire gate_l2_73 = (input_16 ^ input_6);
+  wire gate_l2_74 = (input_20 & input_49);
+  wire gate_l2_75 = 1'b1;
+  wire output_0_76 = ((input_36 & gate_l2_68) | (input_36 & (1'b0)));
+  wire output_1_77 = (((input_25 ? 1 : 0) + (input_47 ? 1 : 0) + (1'b0 ? 1 : 0)) >= 1);
+
+  assign out_bits[0] = output_0_76;
+  assign out_bits[1] = output_1_77;
+endmodule
