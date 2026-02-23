@@ -1,0 +1,2 @@
+stage,classes,feature_mode,train_per_class,test_per_class,hidden_layers,iterations,seeds,multistarts,train_acc_mean,train_acc_std,test_acc_mean,test_acc_std,ensemble_acc,logic_gates_mean
+s2_4class,4,hybrid2,20,8,"[32, 16]",450,"[11, 22]",2,0.4375,0.0125,0.4375,0.0625,0.4688,52
